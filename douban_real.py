@@ -175,18 +175,20 @@ for i in range(1,25+1):
     if (len(user_id) >= 100) and (len(user_id) < 120):
         print '中间点, 休息5分钟'
         time.sleep(random.sample(sleep_bucket, 1)[0])
+        s = login2()
 
 
     if (len(user_id) >= 200) and (len(user_id) < 220):
         print '中间点, 休息5分钟'
         time.sleep(random.sample(sleep_bucket, 1)[0])
-
+        s = login2()
 
     if (len(user_id) >= 300) and (len(user_id) < 320):
         print '中间点, 休息5分钟'
         time.sleep(random.sample(sleep_bucket, 1)[0])
-
+        s = login2()
 
     if (len(user_id) >= 400) and (len(user_id) < 420):
         print '中间点, 休息5分钟'
         time.sleep(random.sample(sleep_bucket, 1)[0])
+        s = login2()
