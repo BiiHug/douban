@@ -23,7 +23,7 @@ def login1():
     formdata = {
         'source': 'None',
         'form_email': 'lliang37@wisc.edu',
-        'form_password': 'Liangluwei1996886',
+        'form_password': 'Liangluwei1996889',
         'login': '登录'
     }
     z = requests.post(url = loginurl,data = formdata, headers = headers)
@@ -51,7 +51,7 @@ def login2():
     formdata = {
         'source': 'None',
         'form_email': 'lliang37@wisc.edu',
-        'form_password': 'Liangluwei1996886',
+        'form_password': 'Liangluwei1996889',
         'login': '登录'
     }
     s= requests.session()
@@ -84,7 +84,7 @@ user_music = list()
 for i in range(1,25+1):
     #获取页面：
     start = (i-1)*20
-    page_comment = 'https://movie.douban.com/subject/1292215/comments?start=' + str(start)
+    page_comment = 'https://movie.douban.com/subject/27027913/comments?start=' + str(start)
 
     #进入并解析页面：
     try:
@@ -98,7 +98,11 @@ for i in range(1,25+1):
     #小循环，分别获得每一个评论界面上的20个用户(url，id，评分):
     for j in range(0,20):
         #首先抓取用户评论模块:
-        comment_info = soup.select('h3 > span.comment-info')[j]
+        try:
+            comment_info = soup.select('h3 > span.comment-info')[j]
+        except IndexError:
+            time.sleep(5)
+            comment_info = soup.select('h3 > span.comment-info')[j]
         people_url = comment_info.find('a')['href']
         user_id.append(comment_info.find('a').text)
         try:
@@ -168,7 +172,7 @@ for i in range(1,25+1):
         "user_music" : user_music
     }
     HH_dataframe = DataFrame(current_dict)
-    HH_dataframe.to_csv('/Applications/学习/Google drive/暂放文件/AML1.csv')
+    HH_dataframe.to_csv('/Applications/学习/Google drive/暂放文件/Jiri.csv')
 
     sleep_bucket = (100, 151, 200, 201, 300, 301)
 
