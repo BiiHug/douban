@@ -8,67 +8,20 @@ import random
 import re
 import requests
 import os.path
+import string
 from bs4 import BeautifulSoup
 from pandas.core.frame import  DataFrame
 
-headers = {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3346.8 Safari/537.36'
-    }
-
-def getListProxies():
-    session = requests.session()
-    page = session.get("http://www.xicidaili.com/nn", headers=headers)
-    soup = BeautifulSoup(page.text, 'html.parser')
-
-    proxyList = []
-    taglist = soup.find_all('tr', attrs={'class': re.compile("(odd)|()")})
-    for trtag in taglist:
-        print len(proxyList)
-        tdlist = trtag.find_all('td')
-        proxy = {'http': tdlist[1].string + ':' + tdlist[2].string,
-                 'https': tdlist[1].string + ':' + tdlist[2].string}
-        url = "http://ip.chinaz.com/getip.aspx"  #用来测试IP是否可用的url
-        try:
-            response = session.get(url, proxies=proxy, timeout=5)
-            proxyList.append(proxy)
-            if(len(proxyList) == 3):
-                break
-        except Exception, e:
-            print e
-            continue
-
-    return proxyList
-
 def session1():
-    global ip
-    proxies = proxy[ip]
-    ip = ip + 1
-    ip = ip%3
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3346.8 Safari/537.36'
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3346.8 Safari/537.36',
+        'Cookie': "bid=%s" % "".join(random.sample(string.ascii_letters + string.digits, 11))
     }
+    print headers['Cookie']
     s = requests.session()
-    try:
-        r = s.get('https://movie.douban.com/', headers = headers, proxies = proxies)
-    except Exception, e:
-        session1()
-    print proxies
+    r = s.get('https://movie.douban.com/', headers = headers)
     return s
 
-def session2():
-    global proxy
-    proxy = getListProxies()
-    print proxy
-    global ip
-    ip = 0
-    s = session1()
-    return s
-#def session2():
-#   try:
-#        s = session1()
-#    except Exception, e:
-#        s = session2()
-#    return s
 
 user_name = list()
 user_id = list()
@@ -83,7 +36,7 @@ for i in range(1,10+1):
 
     scrape_sleep = (1, 3, 4, 6, 7)
 
-    s = session2()
+    s = session1()
 
     try:
         z = s.get(page_comment)
