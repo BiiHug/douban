@@ -12,7 +12,7 @@ import string
 from bs4 import BeautifulSoup
 from pandas.core.frame import  DataFrame
 
-movie_index = 26862829
+movie_index = 5045678
 
 Agent_list = [
     'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.87 Safari/537.36',
@@ -76,8 +76,7 @@ for i in range(1,10+1):
     start = (i-1)*20
     page_comment = 'https://movie.douban.com/subject/' + str(movie_index) + '/comments?start=' + str(start)
 
-    scrape_sleep = (1, 3, 4, 6, 7)
-    scrape_sleep2 = range(10,20)
+    scrape_sleep = (1, 3, 4, 5)
 
     r, agent, cookie = request1(page_comment)
 
@@ -117,7 +116,7 @@ for i in range(1,10+1):
         print user_id
         print user_movie
 
-        time.sleep(random.sample(scrape_sleep2, 1)[0])
+        time.sleep(15)
 
     current_dict = {
         "user_name": user_name,
@@ -126,4 +125,4 @@ for i in range(1,10+1):
         "user_movie": user_movie,
     }
     HH_dataframe = DataFrame(current_dict)
-    HH_dataframe.to_csv('/Applications/学习/Google drive/暂放文件/FH_comment_people.csv')
+    HH_dataframe.to_csv('/Applications/学习/Python/git_douban/data/comment_people/DYHT_comment_people.csv')
