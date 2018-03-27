@@ -90,11 +90,12 @@ for i in range(2,page_num+1):
     print movie_score_list
 
     current_dict = {
+        "user_id": user_id
         "movie_id": movie_id_list,
         "movie_score": movie_score_list,
         "movie_time": movie_time_list,
         "movie_comment": movie_comment_list,
     }
     HH_dataframe = DataFrame(current_dict)
-    HH_dataframe.to_csv('/Applications/学习/Google drive/暂放文件/XXDS_people_inspect.csv')
+    HH_dataframe.to_csv('/Applications/学习/Python/git_douban/data/people_inspect/XXDS_people_inspect.csv')
     time.sleep(int(random.sample(range(0,5),1)[0]))
